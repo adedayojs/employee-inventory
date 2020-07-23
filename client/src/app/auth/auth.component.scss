@@ -48,6 +48,13 @@ body {
       top: 0;
       left: 0;
   }
+  .rightnav{
+    width: 60%;
+    position: fixed;
+    z-index: 1;
+    top: 20vh;
+    right: 0;
+  }
 
   .login-form{
       margin-top: 80%;
