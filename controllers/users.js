@@ -60,7 +60,11 @@ module.exports = {
         id: storage.length + 1,
         login: [],
       };
-
+      if (email.includes("@admin.demo")) {
+        data.admin = true;
+      } else {
+        data.admin = false;
+      }
       storage.push(data);
       return res.json(data);
     } catch (err) {
