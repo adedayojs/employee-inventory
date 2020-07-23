@@ -1,14 +1,4 @@
-const storage = [
-  {
-    firstName: "Adedayo",
-    lastName: "Adedunye",
-    userName: "samfeolu",
-    password: "1234",
-    email: "samfeolu@gmail.com",
-    id: 1,
-    login: [{ time: "" }],
-  },
-];
+const { findUser } = require("../helpers/user");
 
 module.exports = {
   getUser(req, res) {
@@ -16,9 +6,11 @@ module.exports = {
     const user = storage.find((user) => user.id === Number(id));
     res.json(user);
   },
+
   getAllUsers(req, res) {
     return res.json(storage);
   },
+
   logUserIn(req, res) {
     const email = req.body.email;
     const password = req.body.password;
@@ -27,7 +19,7 @@ module.exports = {
       return res.sendStatus(400);
     }
 
-    const user = storage.find((user) => user.email === email && user.password === password);
+    const user = findUser(email, password);
 
     if (user) {
       user.login.push({ time: new Date() });
@@ -38,16 +30,26 @@ module.exports = {
   },
 
   signUserUp(req, res) {
+    //  Get User details
     const email = req.body.email;
     const password = req.body.password;
     const firstName = req.body.firstName;
-    const lastname = req.body.lastname;
+    const lastName = req.body.lastName;
     const userName = req.body.userName;
 
-    if (!email || !password || !firstName || !lastname || !userName) {
+    //  Validate data
+    if (!email || !password || !firstName || !lastName || !userName) {
       res.sendStatus(400);
       return;
     }
+
+    //  Ensure no duplicates
+    if (findUser(email, password)) {
+      res.status(400).json({ message: "User already exists" });
+      return;
+    }
+
+    //  Save Data
     try {
       const data = {
         email,
@@ -55,12 +57,11 @@ module.exports = {
         userName,
         lastName,
         firstName,
-        id: storage.length,
+        id: storage.length + 1,
         login: [],
       };
 
       storage.push(data);
-
       return res.json(data);
     } catch (err) {
       res.json(err);
