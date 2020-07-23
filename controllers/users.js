@@ -1,14 +1,14 @@
-const { findUser } = require("../helpers/user");
+const { Model } = require("../helpers/user");
 
 module.exports = {
   getUser(req, res) {
     const id = req.params.id;
-    const user = storage.find((user) => user.id === Number(id));
+    const user = Model.findUserById(id);
     res.json(user);
   },
 
   getAllUsers(req, res) {
-    return res.json(storage);
+    return res.json(Model.allUsers());
   },
 
   logUserIn(req, res) {
@@ -19,7 +19,7 @@ module.exports = {
       return res.sendStatus(400);
     }
 
-    const user = findUser(email, password);
+    const user = Model.findUser(email, password);
 
     if (user) {
       user.login.push({ time: new Date() });
@@ -44,7 +44,7 @@ module.exports = {
     }
 
     //  Ensure no duplicates
-    if (findUser(email, password)) {
+    if (Model.findUser(email, password)) {
       res.status(400).json({ message: "User already exists" });
       return;
     }
@@ -57,7 +57,6 @@ module.exports = {
         userName,
         lastName,
         firstName,
-        id: storage.length + 1,
         login: [],
       };
       if (email.includes("@admin.demo")) {
@@ -65,8 +64,8 @@ module.exports = {
       } else {
         data.admin = false;
       }
-      storage.push(data);
-      return res.json(data);
+      const user = Model.saveUser(data);
+      return res.json(user);
     } catch (err) {
       res.json(err);
     }
