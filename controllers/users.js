@@ -32,14 +32,14 @@ module.exports = {
       let minutes = login.getHours() * 60 + login.getMinutes();
       let resumptionMinutes = resumption.getHours() * 60 + resumption.getMinutes();
 
-      let lateTime
+      let lateTime = 0
       const isLate = minutes > resumptionMinutes
       if (isLate) {
         //  Convert to minutes
         lateTime = minutes - resumptionMinutes
 
       }
-      user.login.push({ time: login, isLate, lateTime });
+      user.login.push({ timeOfArrival: login, isLate, lateTime, resumption });
       return res.json(user);
     } else {
       return res.status(401).json({ message: "Wrong Login Details" });

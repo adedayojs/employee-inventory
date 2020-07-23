@@ -10,6 +10,9 @@ import { HttpClient } from '@angular/common/http';
 export class AdminComponent implements OnInit {
   constructor(private http: HttpClient) {}
   allUsers: Array<UserModel>;
+  filterdUsers: Array<UserModel>;
+  searchTerm = '';
+  pricePerMinute = 0.02;
   resumption;
   ngOnInit(): void {
     this.fetchAllUsers();
@@ -20,6 +23,7 @@ export class AdminComponent implements OnInit {
       (res) => {
         console.log(res);
         this.allUsers = res;
+        this.sortLowest();
       },
       (err) => {
         console.log(err);
@@ -30,11 +34,6 @@ export class AdminComponent implements OnInit {
     this.http.get<any>('api/v1/resumption').subscribe(
       (res) => {
         console.log(res);
-        this.resumption = new Date();
-        this.resumption.setHours(8);
-        this.resumption.setMinutes(0);
-        this.resumption.setMilliseconds(0);
-        console.log(this.resumption);
       },
       (err) => {
         console.log(err);
@@ -42,5 +41,22 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  latenessFilter(): void {}
+  reducer = (accumulator, currentValue) => accumulator + currentValue.lateTime;
+  sortHighest(): void {
+    this.allUsers.sort((a, b) => {
+      a.owed = a.login.reduce(this.reducer, 0);
+      b.owed = b.login.reduce(this.reducer, 0);
+      return b.owed - a.owed;
+    });
+  }
+  sortLowest(): void {
+    this.allUsers.sort((a, b) => {
+      a.owed = a.login.reduce(this.reducer, 0);
+      b.owed = b.login.reduce(this.reducer, 0);
+      return a.owed - b.owed;
+    });
+  }
+  search(value?) {
+    console.log(value, this.searchTerm);
+  }
 }

@@ -106,9 +106,19 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-table mr-1"></i>
+          <div class="card-header row justify-content-between">
+            <div>
               List Of Defaulters
+            </div>
+            <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+              <div class="input-group">
+                <input (input)="search()" [(ngModel)]="searchTerm" class="form-control" type="text"
+                  placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -120,7 +130,7 @@
                     <th>Office</th>
                     <th>Username</th>
                     <th>Salary</th>
-                    <th>Total Amount Owed</th>
+                    <th>Total Amount Owed ($)</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -140,6 +150,7 @@
                     <td>{{user.email}}</td>
                     <td>{{user.userName}}</td>
                     <td>{{user.userName}}</td>
+                    <td>{{user.owed * pricePerMinute}}</td>
                   </tr>
                 </tbody>
               </table>
