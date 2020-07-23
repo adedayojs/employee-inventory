@@ -1,4 +1,5 @@
 const { Model } = require("../helpers/user");
+const { resumptionTime } = require("../helpers/database");
 
 module.exports = {
   getUser(req, res) {
@@ -22,7 +23,23 @@ module.exports = {
     const user = Model.findUser(email, password);
 
     if (user) {
-      user.login.push({ time: new Date() });
+      let resumption = new Date();
+      resumption.setHours(resumptionTime);
+      resumption.setMinutes(0);
+      resumption.setMilliseconds(0);
+
+      let login = new Date();
+      let minutes = login.getHours() * 60 + login.getMinutes();
+      let resumptionMinutes = resumption.getHours() * 60 + resumption.getMinutes();
+
+      let lateTime
+      const isLate = minutes > resumptionMinutes
+      if (isLate) {
+        //  Convert to minutes
+        lateTime = minutes - resumptionMinutes
+
+      }
+      user.login.push({ time: login, isLate, lateTime });
       return res.json(user);
     } else {
       return res.status(401).json({ message: "Wrong Login Details" });

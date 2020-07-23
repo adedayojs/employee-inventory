@@ -10,5 +10,5 @@ module.exports = {
       login: [{ time: "" }],
     },
   ],
-  resumptionTime: "8:00",
+  resumptionTime: 8,
 };

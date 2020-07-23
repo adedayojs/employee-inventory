@@ -71,7 +71,7 @@
             <div class="card bg-primary text-white mb-4">
               <div class="card-body">Number Of Employees</div>
               <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="">76</a>
+                <a class="small text-white stretched-link" href="">{{allUsers?.length}}</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
               </div>
             </div>
@@ -118,7 +118,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Office</th>
-                    <th>Age</th>
+                    <th>Username</th>
                     <th>Salary</th>
                     <th>Total Amount Owed</th>
                   </tr>
@@ -128,29 +128,19 @@
                     <th>Name</th>
                     <th>Position</th>
                     <th>Office</th>
-                    <th>Age</th>
+                    <th>Username</th>
                     <th>Salary</th>
                     <th>Total Amount Owed</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>$320,800</td>
-                    <td>76</td>
+                  <tr *ngFor="let user of allUsers">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.userName}}</td>
+                    <td>{{user.userName}}</td>
                   </tr>
-                  <tr>
-                    <td>Garrett Winters</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>63</td>
-                    <td>$170,750</td>
-                    <td>89</td>
-                  </tr>
-
                 </tbody>
               </table>
             </div>
