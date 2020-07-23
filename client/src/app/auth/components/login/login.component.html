@@ -3,15 +3,18 @@
     <div class="login-form">
       <form>
         <div class="form-group">
-          <label>User Name</label>
-          <input type="text" class="form-control" placeholder="User Name">
+          <label>Employee's Email</label>
+          <input type="email" class="form-control" placeholder="email">
         </div>
         <div class="form-group">
           <label>Password</label>
           <input type="password" class="form-control" placeholder="Password">
         </div>
-        <a routerLink="../login" class="btn btn-black">Login</a>
-        <a routerLink="../signup" class="btn btn-secondary">Register</a>
+        <div class="alert alert-secondary" role="alert">
+          Note: Logging In Automatically captures your log in time
+        </div>
+        <a (click)="login()" class="btn btn-dark text-white m-1">Login</a>
+        <a routerLink="../signup" class="btn btn-secondary m-1">Register</a>
       </form>
     </div>
   </div>
