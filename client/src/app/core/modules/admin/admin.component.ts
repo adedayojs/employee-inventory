@@ -1,6 +1,7 @@
 import { UserModel } from './../../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   allUsers: Array<UserModel>;
   filterdUsers: Array<UserModel>;
   searchTerm = '';
@@ -24,6 +25,7 @@ export class AdminComponent implements OnInit {
         console.log(res);
         this.allUsers = res;
         this.sortLowest();
+        this.search();
       },
       (err) => {
         console.log(err);
@@ -56,7 +58,19 @@ export class AdminComponent implements OnInit {
       return a.owed - b.owed;
     });
   }
-  search(value?) {
+  search(value?): void {
     console.log(value, this.searchTerm);
+    value = value || this.searchTerm;
+    this.filterdUsers = this.allUsers.filter(
+      (user) =>
+        new RegExp(value, 'i').exec(user.firstName) ||
+        new RegExp(value, 'i').exec(user.email) ||
+        new RegExp(value, 'i').exec(user.userName) ||
+        new RegExp(value, 'i').exec(user.lastName)
+    );
+  }
+  logout(): void {
+    localStorage.clear();
+    this.router.navigateByUrl('auth/login');
   }
 }
