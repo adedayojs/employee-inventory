@@ -25,7 +25,7 @@ module.exports = {
       user.login.push({ time: new Date() });
       return res.json(user);
     } else {
-      return res.sendStatus(401);
+      return res.status(401).json({ message: "Wrong Login Details" });
     }
   },
 

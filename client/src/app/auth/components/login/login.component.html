@@ -5,13 +5,24 @@
         <div class="form-group">
           <label>Employee's Email</label>
           <input type="email" class="form-control" placeholder="email" formControlName="email">
+          <small class="text-danger" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty">
+            Please enter email
+          </small>
         </div>
         <div class="form-group">
           <label>Password</label>
           <input type="password" class="form-control" placeholder="Password" formControlName="password">
+          <small class="text-danger" *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty">
+            Please enter password
+          </small>
         </div>
         <div class="alert alert-secondary" role="alert">
           Note: Logging In Automatically captures your log in time
+        </div>
+        <div class="row justify-content-center">
+          <small class="text-danger" *ngIf="formError">
+            {{error}}
+          </small>
         </div>
         <a (click)="login()" class="btn btn-dark text-white m-1">Login</a>
         <a routerLink="../signup" class="btn btn-secondary m-1">Register</a>
