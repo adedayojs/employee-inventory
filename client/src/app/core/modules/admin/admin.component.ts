@@ -15,6 +15,7 @@ export class AdminComponent implements OnInit {
   searchTerm = '';
   pricePerMinute = 0.02;
   resumption;
+  sortType: 'Sort By Highest' | 'Sort By Lowest' = 'Sort By Lowest';
   ngOnInit(): void {
     this.fetchAllUsers();
     this.fetchResumption();
@@ -24,8 +25,11 @@ export class AdminComponent implements OnInit {
       (res) => {
         console.log(res);
         this.allUsers = res;
-        this.sortLowest();
+        //  Filter Users
         this.search();
+
+        //  Sort them users
+        this.sortLowest();
       },
       (err) => {
         console.log(err);
@@ -45,19 +49,21 @@ export class AdminComponent implements OnInit {
 
   reducer = (accumulator, currentValue) => accumulator + currentValue.lateTime;
   sortHighest(): void {
-    this.allUsers.sort((a, b) => {
+    this.filterdUsers.sort((a, b) => {
       a.owed = a.login.reduce(this.reducer, 0);
       b.owed = b.login.reduce(this.reducer, 0);
       return b.owed - a.owed;
     });
   }
   sortLowest(): void {
-    this.allUsers.sort((a, b) => {
+    this.filterdUsers.sort((a, b) => {
       a.owed = a.login.reduce(this.reducer, 0);
       b.owed = b.login.reduce(this.reducer, 0);
       return a.owed - b.owed;
     });
   }
+
+  //  Filter method
   search(value?): void {
     console.log(value, this.searchTerm);
     value = value || this.searchTerm;
@@ -69,8 +75,19 @@ export class AdminComponent implements OnInit {
         new RegExp(value, 'i').exec(user.lastName)
     );
   }
+  
   logout(): void {
     localStorage.clear();
     this.router.navigateByUrl('auth/login');
+  }
+
+  sort(val): void {
+    if (val === 'Sort By Highest') {
+      this.sortType = 'Sort By Highest';
+      this.sortHighest();
+    } else {
+      this.sortType = 'Sort By Lowest';
+      this.sortLowest();
+    }
   }
 }

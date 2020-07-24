@@ -63,6 +63,7 @@ module.exports = {
       password: "admin1",
       email: "admin1@admin.demo",
       id: 1,
+      admin:true,
       login: [
         {
           isLate: true,
@@ -91,6 +92,7 @@ module.exports = {
       password: "admin2",
       email: "admin2@admin.demo",
       id: 4,
+      admin:true,
       login: [
         {
           isLate: true,

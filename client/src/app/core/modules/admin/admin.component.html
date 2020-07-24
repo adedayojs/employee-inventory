@@ -11,20 +11,20 @@
         <span class="sr-only">Split button!</span>
       </button>
       <ul id="dropdown-split" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-split">
-        <li role="menuitem"><a class="dropdown-item" (click)="logout()" >Logout</a></li>
+        <li role="menuitem"><a class="dropdown-item" (click)="logout()">Logout</a></li>
       </ul>
     </div>
 
     <!-- Navbar Search-->
-      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-          <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
-            aria-describedby="basic-addon2" />
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-          </div>
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
+          aria-describedby="basic-addon2" />
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
         </div>
-      </form>
+      </div>
+    </form>
 
   </div>
 
@@ -112,6 +112,21 @@
           <div class="card-header row justify-content-between">
             <div>
               List Of Defaulters
+            </div>
+            <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+              <div class="btn-group" dropdown>
+                <button id="button-menu-dividers" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                  aria-controls="dropdown-menu-dividers">
+                  {{sortType}} <span class="caret"></span>
+                </button>
+                <ul id="dropdown-menu-dividers" *dropdownMenu class="dropdown-menu" role="menu"
+                  aria-labelledby="button-menu-dividers">
+                  <li role="menuitem"><a class="dropdown-item" (click)="sort('Sort By Highest')">Sort By Highest</a>
+                  </li>
+                  <li role="menuitem"><a class="dropdown-item" (click)="sort('Sort By Lowest')">Sort By Lowest</a>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
               <div class="input-group">
