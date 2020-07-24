@@ -16,6 +16,9 @@ export class AdminComponent implements OnInit {
   pricePerMinute = 0.02;
   resumption;
   sortType: 'Sort By Highest' | 'Sort By Lowest' = 'Sort By Lowest';
+
+  //  State Would be used to store loggedin user details
+  loggedInUser; // Get from state
   ngOnInit(): void {
     this.fetchAllUsers();
     this.fetchResumption();
@@ -75,7 +78,7 @@ export class AdminComponent implements OnInit {
         new RegExp(value, 'i').exec(user.lastName)
     );
   }
-  
+
   logout(): void {
     localStorage.clear();
     this.router.navigateByUrl('auth/login');

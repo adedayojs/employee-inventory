@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "prestart": "cd client; yarn",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
