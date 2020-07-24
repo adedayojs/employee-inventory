@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "postinstall": "build --prod",
+    "postinstall": "npm build --prod",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
