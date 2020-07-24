@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "cd client; yarn",
+    "postinstall": "cd client; yarn; npm run build --prod;",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
